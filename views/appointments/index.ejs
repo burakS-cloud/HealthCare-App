@@ -1,0 +1,21 @@
+<% layout('layouts/boilerplate')%>
+<%- include('../partials/header')%>
+<link rel="stylesheet" href="/css/style.css">
+<div style="margin-top:100px;">
+<h1>All Appointments</h1>
+<table>
+    <tr>
+        <th>Appointment Section</th>
+        <th>Doctor</th>
+        <th>Date</th>
+      </tr>
+<% for (let appointment of user.appointments){%>  
+        <tr>
+          
+          <td><%= appointment.appointmentSection %></td>
+          <td><%= appointment.appointmentDoctor %></td>
+          <td> <%= appointment.appointmentDate %> - <b><%= appointment.appointmentTime %></b> </td>
+        </tr>  
+<% }%>
+</table>
+</div>

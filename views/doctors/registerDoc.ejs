@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate')%>
+<%- include('../partials/header')%>
+<link rel="stylesheet" href="/css/style.css">
+<div style="margin: 120px 500px;">
+<h1>Register as Doctor</h1>
+<form action="/registerDoc" method="POST" class="validated-form" novalidate>
+    
+    <div class="mb-3">
+        <label class="form-label" for="username">First-Last Name</label>
+        <input class="form-control" type="text" id="username" name="username" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" type="email" id="email" name="email" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control" type="password" id="password" name="password" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="tc">Social Security Number (T.C)</label>
+        <input class="form-control" type="text" id="tc" name="tc" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="phoneNumber">Phone number</label>
+        <input class="form-control" type="phoneNumber" id="phoneNumber" name="phoneNumber" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="mySecretary">My Secretary</label>
+        <input class="form-control" type="text" id="mySecretary" name="mySecretary" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="doctorSection">Doctor Section</label>
+        <input class="form-control" type="text" id="doctorSection" name="doctorSection" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div><label class="form-label" for="address">Address</label></div>
+        <textarea name="address" id="address" cols="50" rows="5"></textarea>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <button class="btn btn-success">Register</button>
+</form>
+</div>

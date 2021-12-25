@@ -1,0 +1,174 @@
+const express = require('express');
+const path = require('path');
+const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
+const session = require('express-session');
+const flash = require('connect-flash');
+const ExpressError = require('./utils/ExpressError');
+const methodOverride = require('method-override');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
+const Doctor = require('./models/doctor');
+const Secretary = require('./models/secretary');
+//const valueCheck = require('./public/javascripts/valueCheck');
+
+
+const userRoutes = require('./routes/users');
+const doctorRoutes = require('./routes/doctors');
+const appointmentRoutes = require('./routes/appointments');
+
+
+mongoose.connect('mongodb://localhost:27017/hospital', {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+    console.log("Database connected");
+});
+
+const app = express();
+
+app.engine('ejs', ejsMate)
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'))
+
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')))
+
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+
+app.use(session(sessionConfig))
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use('doctor', new LocalStrategy(Doctor.authenticate()));
+passport.use('secretary', new LocalStrategy(Secretary.authenticate()));
+passport.use('user', new LocalStrategy(User.authenticate()));
+
+/*passport.serializeUser(Doctor.serializeUser());
+passport.deserializeUser(Doctor.deserializeUser());
+
+passport.serializeUser(Secretary.serializeUser());
+passport.deserializeUser(Secretary.deserializeUser());*/
+
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
+/*passport.serializeUser(function(user, done) { 
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(user, done) {
+    if(user!=null)
+      done(null,user);
+  });*/
+
+  function PrincipleInfo(principleId, principleType, details) {
+    this.principleId = principleId;
+    this.principleType = principleType;
+    this.details = details;
+}
+
+passport.serializeUser(function (Doctor, done) {
+    //userObjectThing could be a User or a Sponsor
+    var principleType = "doctor";
+    var userPrototype =  Object.getPrototypeOf(Doctor);
+    //console.log(userPrototype === User.prototype);
+    //console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    //console.log("User.prototype value to check what's inside the first if", User.prototype);
+    if (userPrototype === User.prototype) {
+        principleType = "user";
+    } else if (userPrototype === Doctor.prototype) {
+        principleType = "doctor";
+    } else if (userPrototype === Secretary.prototype) {
+        principleType = "secretary";
+    }
+    //console.log(principleType);
+
+    var principleInfo = new PrincipleInfo(Doctor._id, principleType, '');
+    done(null,principleInfo);
+});
+
+    passport.deserializeUser(function (principleInfo, done) {
+        //console.log("Principle info object:",principleInfo);
+        //console.log("PrincipleType value:", principleInfo.principleType);
+        //console.log(typeof(principleType));
+        if (principleInfo.principleType == 'user') {
+            User.findOne({
+                _id: principleInfo.principleId
+            }, '-salt -hashedPassword', function (err, user) { // don't ever give out the password or salt
+                done(err, user);
+            });
+        } else if (principleInfo.principleType == 'doctor') {
+            Doctor.findOne({
+                _id: principleInfo.principleId
+            }, '-salt -hashedPassword', function (err, user) { // don't ever give out the password or salt
+                done(err, user);
+            });
+        } else if (principleInfo.principleType == 'secretary') {
+            Secretary.findOne({
+                _id: principleInfo.principleId
+            }, '-salt -hashedPassword', function (err, user) { // don't ever give out the password or salt
+                done(err, user);
+            });
+        }
+
+    });
+
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    //res.locals.currentDoctor = req.doctor;
+    //res.locals.currentSecretary = req.secretary;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
+
+app.use('/users', userRoutes);
+app.use('/doctors', doctorRoutes);
+app.use('/appointments', appointmentRoutes);
+
+
+
+app.get('/', async (req, res) => {
+    const doctors = await Doctor.find({});
+    //const sections = await Section.find({});
+    res.render('home', { doctors });
+    
+});
+
+
+
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
+})
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
+    res.status(statusCode).render('error', { err })
+})
+
+app.listen(3000, () => {
+    console.log('Serving on port 3000')
+})
+
+

@@ -1,0 +1,36 @@
+<header>
+
+    <div class="container">
+    
+        <a href="/" class="logo"><span>H</span>ealth<span>C</span>are.</a>
+    
+        <nav class="nav">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#facility">Facility</a></li>
+                <li><a href="#review">Review</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#post">Post</a></li>
+                <li>
+                <% if(!currentUser) {%>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                    <!--<li><a href="/loginDoc">Login Doc</a></li>!-->
+                    <!--<li><a href="/registerDoc">Register Doc</a></li>!-->
+                    <% } else if(currentUser.isAuthorized === false) {%>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/appointments/<%=currentUser._id%>">My Appointments</a></li>
+                    <% } else if(currentUser.isAuthorized === true){ %>
+                        <li><a href="/logout">Logout</a></li>
+                        <li><a href="/appointments/<%=currentUser._id%>">My Patient Appointments</a></li>
+                   <% } %>
+                </li>
+            </ul>
+        </nav>
+    
+        <div class="fas fa-bars"></div>
+    
+    </div>
+    
+    </header>
