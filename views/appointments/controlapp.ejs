@@ -1,0 +1,79 @@
+<% layout('layouts/boilerplate')%>
+<%- include('../partials/header')%>
+<link rel="stylesheet" href="/css/style.css">
+
+
+<div style="margin-top:150px; margin-left:300px; width: 50%;">
+
+<section class="contact" id="contact">
+
+    <div class="container min-vh-90">
+
+        <div class="row justify-content-center">
+
+            <h1 class="heading"><span>'</span> make an appointment <span>'</span></h1>
+
+            <div class="col-md-10" data-aos="flip-down">
+
+                <% if(!currentUser) {%>
+               
+                <form action="/users" method="post">
+
+                    <div class="inputBox">
+                        <select name="appointmentSection" id="appointmentSection">
+                            <option value="blabla" disabled selected>choose a section</option>
+                            
+                        </select>
+                        
+                        
+                        <select name="appointmentDoctor" id="appointmentDoctor">
+                            <option value="ssdasdasdasd" disabled selected>choose a doctor</option>
+                            
+                        </select>
+                         
+                        <input type="date" name="appointmentTime" required>
+                        <input type="time">
+                    </div>
+
+                    <textarea name="" id="" cols="30" rows="10" placeholder="message ( optional )"></textarea>
+
+                    <input type="submit" name="" id="" value="make appointment" class="button">
+
+                </form>
+                <% } else { %>
+                    <form action="/users/<%=user._id%>" method="post" id="demoForm" class="demoForm">
+
+                        <div class="inputBox">
+                            <select name="appointmentSection" id="appointmentSection">
+                                <option value="<%=doctor.doctorSection%>" disabled selected><%=doctor.doctorSection%></option>
+                                
+                            </select>
+    
+                            <select name="appointmentDoctor" id="appointmentDoctor">
+                                <option value="<%= doctor.username%>" disabled selected><%= doctor.username%></option>
+                                
+                            </select>
+                             
+                            <input type="date" name="appointmentDate" required>
+                            <input type="time" name="appointmentTime" required>
+                        </div>
+    
+                        <textarea name="" id="" cols="30" rows="10" placeholder="message ( optional )"></textarea>
+    
+                        <input type="submit" name="" id="" value="make appointment" class="button">
+    
+                    </form>
+
+
+              <%  } %>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>

@@ -187,6 +187,7 @@ header .nav ul li{
 
 header .nav ul li a{
   font-size: 2rem;
+  margin-left: 30px;
 }
 
 header .fa-bars{

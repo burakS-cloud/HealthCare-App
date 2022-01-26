@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate')%>
+<%- include('../partials/header')%>
+<link rel="stylesheet" href="/css/style.css">
+<div style="margin-top:100px;">
+<h1>All Passive Appointments</h1>
+<table>
+    <tr>
+        <th>Patient Name</th>
+        <th>Appointment Section</th>
+        <th>Doctor</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Appointment Options</th>
+      </tr>
+      
+      <% for (let i = 0; i < doctor.patientAppointments.length; i++){%>
+        <tr>
+            <% if(doctor.patientAppointments[i].appointmentCondition === false){ %>
+              <td><%= doctor.patientAppointments[i].appointmentOwner %></td>
+              <td><%= doctor.patientAppointments[i].appointmentSection %></td>
+              <td><%= doctor.patientAppointments[i].appointmentDoctor %></td>
+              <td> <%= doctor.patientAppointments[i].appointmentDate %> - <b><%= doctor.patientAppointments[i].appointmentTime %></b> </td>
+              <td>Passive</td>
+              <td style="width: 17%; white-space: nowrap">
+                <a href="/doctors/<%=doctor._id%>/<%=doctor.patients[i]._id%>/controlapp"><button style="font-size: 13px; margin-left: 1%; display:inline-block;" type="button" class="btn btn-info">Create New Appointment</button></a>
+                <form action="/doctors/<%=doctor._id%>/<%=doctor.patientAppointments[i]._id%>/<%=doctor.patients[i]._id%>?_method=DELETE" method="POST" style="display:inline-block;">
+                <button style="font-size: 13px; margin-left: 1%;" class="btn btn-danger">Delete Appointment</button>
+                </form>
+              </td>
+              
+                  
+              <% } %>   
+        </tr>       
+<% }%>
+</table>
+<!-- Buraya user'id gelmesini sağla, header ile aranı iyi tutarken-->
+
+</div>
+

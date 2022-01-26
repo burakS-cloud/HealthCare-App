@@ -14,16 +14,18 @@
                 <li><a href="#post">Post</a></li>
                 <li>
                 <% if(!currentUser) {%>
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/register">Register</a></li>
+                    <li><a href="/users/login">Login</a></li>
+                    <li><a href="/users/register">Register</a></li>
                     <!--<li><a href="/loginDoc">Login Doc</a></li>!-->
                     <!--<li><a href="/registerDoc">Register Doc</a></li>!-->
                     <% } else if(currentUser.isAuthorized === false) {%>
-                    <li><a href="/logout">Logout</a></li>
-                    <li><a href="/appointments/<%=currentUser._id%>">My Appointments</a></li>
+                    <li><a href="/users/<%=currentUser._id%>">My Appointments</a></li>
+                    <li><a href="/users/<%=currentUser._id%>/cancelledusr">Cancelled Appointments</a></li>
+                    <li><a href="/users/logout">Logout</a></li>
                     <% } else if(currentUser.isAuthorized === true){ %>
-                        <li><a href="/logout">Logout</a></li>
-                        <li><a href="/appointments/<%=currentUser._id%>">My Patient Appointments</a></li>
+                        <li><a href="/doctors/<%=currentUser._id%>">My Patient Appointments</a></li>
+                        <li><a href="/doctors/<%=currentUser._id%>/cancelled">Cancelled Appointments</a></li>
+                        <li><a href="/doctors/logout">Logout</a></li>
                    <% } %>
                 </li>
             </ul>

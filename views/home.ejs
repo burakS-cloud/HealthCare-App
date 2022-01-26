@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hospital App</title>
 
+
     <!-- aos css file cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
@@ -19,6 +20,7 @@
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="/css/style.css">
+    
 
 </head>
 <body>
@@ -244,7 +246,7 @@
 
                 <% if(!currentUser) {%>
                
-                <form action="/appointments" method="post">
+                <form action="/users" method="post">
 
                     <div class="inputBox">
                         <select name="appointmentSection" id="appointmentSection">
@@ -272,7 +274,7 @@
 
                 </form>
                 <% } else { %>
-                    <form action="/appointments/<%=currentUser._id%>" method="post" id="demoForm" class="demoForm">
+                    <form action="/users/<%=currentUser._id%>" method="post" id="demoForm" class="demoForm">
 
                         <div class="inputBox">
                             <select name="appointmentSection" id="appointmentSection">
@@ -397,6 +399,7 @@
 
 </section>
 
+
 <!-- footer section ends -->
 
 
@@ -425,9 +428,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
 <!-- custom js link  -->
-<script src="../public/javascripts/main.js"></script>
-
-<!--<script src="../public/javascripts/valueCheck.js"></script> !-->
+<script src="/javascripts/main.js"></script>
 
 
 <script>
@@ -438,6 +439,8 @@ AOS.init({
 });
 
 </script>
+
+
 
 </body>
 </html>

@@ -2,21 +2,38 @@
 <%- include('../partials/header')%>
 <link rel="stylesheet" href="/css/style.css">
 <div style="margin-top:100px;">
-<h1>All Appointments</h1>
+<h1>All Active Appointments</h1>
 <table>
     <tr>
-       <!--<th>Patient Name</th>!-->
+        <th>Patient Name</th>
         <th>Appointment Section</th>
         <th>Doctor</th>
         <th>Date</th>
+        <th>Status</th>
+        
+        
       </tr>
-<<% for (let appointment of doctor.patientAppointments){%>  
+      
+<% for (let i = 0; i < doctor.patientAppointments.length; i++){%>
         <tr>
-          <td><%= appointment.appointmentSection %></td>
-          <td><%= appointment.appointmentDoctor %></td>
-          <td> <%= appointment.appointmentDate %> - <b><%= appointment.appointmentTime %></b> </td>
+            <% if(doctor.patientAppointments[i].appointmentCondition === true){ %>
+              <td><%= doctor.patientAppointments[i].appointmentOwner %></td>
+              <td><%= doctor.patientAppointments[i].appointmentSection %></td>
+              <td><%= doctor.patientAppointments[i].appointmentDoctor %></td>
+              <td> <%= doctor.patientAppointments[i].appointmentDate %> - <b><%= doctor.patientAppointments[i].appointmentTime %></b> </td>
+              <td>
+              <span style="margin-left: 7%;">Active</span>
+              <form action="/doctors/<%=doctor._id%>/<%=doctor.patientAppointments[i]._id%>?_method=PUT" method="POST">
+                <button style="font-size: 13px; margin-left: 20%;" class="btn btn-warning">Cancel</button>
+              </form>
+              <% } %>   
+          </td>
+          
         </tr>  
 <% }%>
 </table>
 
+
+
 </div>
+
