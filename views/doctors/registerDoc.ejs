@@ -1,71 +1,69 @@
-<% layout('layouts/boilerplate')%>
-<%- include('../partials/header')%>
-<link rel="stylesheet" href="/css/style.css">
-<div style="margin: 120px 500px;">
-<h1>Register as Doctor</h1>
-<form action="/doctors/registerDoc" method="POST" class="validated-form" novalidate>
-    
-    <div class="mb-3">
-        <label class="form-label" for="username">First-Last Name</label>
-        <input class="form-control" type="text" id="username" name="username" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="email">Email</label>
-        <input class="form-control" type="email" id="email" name="email" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="password">Password</label>
-        <input class="form-control" type="password" id="password" name="password" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
+<%-include('../partials/headerLoginRegister')%> <%
+layout('layouts/boilerplate')%>
+
+<link rel="stylesheet" href="/css/register.css" />
+
+<div class="centerr">
+  <h1>Register</h1>
+  <form
+    class="form-register"
+    action="/doctors/registerDoc"
+    method="POST"
+    class="validated-form"
+    novalidate
+  >
+    <div class="txt_field">
+      <input type="text" id="username" name="username" required />
+      <span></span>
+      <label for="username">First-Last Name</label>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label" for="tc">Social Security Number (T.C)</label>
-        <input class="form-control" type="text" id="tc" name="tc" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
+    <div class="txt_field">
+      <input type="email" id="email" name="email" required />
+      <span></span>
+      <label for="email">Email</label>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label" for="phoneNumber">Phone number</label>
-        <input class="form-control" type="phoneNumber" id="phoneNumber" name="phoneNumber" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
+    <div class="txt_field">
+      <input type="password" id="password" name="password" required />
+      <span></span>
+      <label for="password">Password</label>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label" for="mySecretary">My Secretary</label>
-        <input class="form-control" type="text" id="mySecretary" name="mySecretary" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
+    <div class="txt_field">
+      <input type="text" id="tc" name="tc" required />
+      <span></span>
+      <label for="tc">Social Security Number</label>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label" for="doctorSection">Doctor Section</label>
-        <input class="form-control" type="text" id="doctorSection" name="doctorSection" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
+    <div class="txt_field">
+      <input type="number" id="phoneNumber" name="phoneNumber" required />
+      <span></span>
+      <label for="phoneNumber">Phone Number</label>
     </div>
 
-    <div class="mb-3">
-        <div><label class="form-label" for="address">Address</label></div>
-        <textarea name="address" id="address" cols="50" rows="5"></textarea>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
+    <div class="txt_field">
+      <input type="text" id="mySecretary" name="mySecretary" required />
+      <span></span>
+      <label for="mySecretary">My Secretary</label>
     </div>
-    <button class="btn btn-success">Register</button>
-</form>
+
+    <div class="txt_field">
+      <input type="text" id="doctorSection" name="doctorSection" required />
+      <span></span>
+      <label for="doctorSection">Doctor Section</label>
+    </div>
+
+    <div class="txt_field">
+      <input type="text" id="address" name="address" required />
+      <span></span>
+      <label for="address">Address</label>
+    </div>
+
+    <div class="signup_link">
+      Already have an account? <a href="/users/login">Sign in</a>
+    </div>
+
+    <input type="submit" value="Sign up" />
+  </form>
 </div>

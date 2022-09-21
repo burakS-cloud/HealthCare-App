@@ -1,24 +1,24 @@
-<% layout('layouts/boilerplate')%>
-<%- include('../partials/header')%>
-<link rel="stylesheet" href="/css/style.css">
-<div style="margin: 200px 500px;">
-<h1>Login</h1>
-<form action="/users/login" method="POST" class="validated-form" novalidate>
-    <div class="mb-3">
-        <label class="form-label" for="username">E-mail</label>
-        <input class="form-control" type="text" id="username" name="username" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-    </div>
+<%-include('../partials/headerLoginRegister')%> <%
+layout('layouts/boilerplate')%>
 
-    <div class="mb-3">
-        <label class="form-label" for="password">Password</label>
-        <input class="form-control" type="password" id="password" name="password" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
+<link rel="stylesheet" href="/css/login.css" />
+
+<div class="centerr">
+  <h1>Login</h1>
+  <form action="/users/login" method="POST" class="validated-form" novalidate>
+    <div class="txt_field">
+      <input type="text" id="username" name="username" required />
+      <span></span>
+      <label for="username">Email</label>
     </div>
-    <button class="btn btn-success">Login</button>
-</form>
+    <div class="txt_field">
+      <input type="password" id="password" name="password" required />
+      <span></span>
+      <label for="password">Password</label>
+    </div>
+    <input type="submit" value="Login" />
+    <div class="signup_link">
+      Not a member? <a href="/users/register">Sign up</a>
+    </div>
+  </form>
 </div>
